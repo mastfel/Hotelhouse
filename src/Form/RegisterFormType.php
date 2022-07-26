@@ -34,9 +34,7 @@ class RegisterFormType extends AbstractType
         ->add('civilite', TextType::class, [
             'label' => 'civilité'
         ])
-        ->add('statut', TextType::class, [
-            'label' => 'statut'
-        ])
+        
         
 
 

@@ -55,10 +55,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $civilite;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $statut;
+    
 
     /**
      * @ORM\Column(type="datetime")
@@ -201,19 +198,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function getStatut(): ?int
-    {
-        return $this->statut;
-    }
-
-    public function setStatut(int $statut): self
-    {
-        $this->statut = $statut;
-
-        return $this;
-    }
-
+    
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;

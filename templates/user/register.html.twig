@@ -1,20 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Ajouter un employé{% endblock %}
 
 {% block body %}
 
-        <h1 class="my-4 text-center">Inscription</h1>
+
+{% if user is not defined %}
+
+    <h1 class="text-center my-4">Ajout d'un nouvel employé</h1>
+
+{% else %}
+
+      <h1 class="text-center my-4">Modifier l'empolyé {{user.prenom}} {{user.nom}}</h1>
+{% endif %}
+
+<div class="row">
+    <div class="col-8 mx-auto">
+
+       {#{{ form (form_employe) }}#}
+
+       {# Pour désactiver le validateur HTML coté-client (navigateur) on peut le faire 
+            dans EmployeFormType ('submit') OU dans le form_start en second argument comme suit: #}
 
 
- <div class="row">
- 
- 
-        <div class="col-4 mx-auto">
-            {{ form(form) }}
+        {{ form_start(user,{'attr': {novalidate: 'novalidate'}}
+) }}
+
+         {{ form_row(user.prenom) }}
+        {{ form_row(user.nom) }}
+
+        {{ form_end(user)}}
+
+
+        
+        <div class="row">
+        {# <div class="col-6"> {{ form_row(form_employe.service) }}</div> #}
+        {# <div class="col-6"> {{ form_row(form_employe.salary) }}</div> #}
         </div>
- 
- </div>
+         {# {{ form_row(form_employe.gender) }} #}
+          {# {{ form_row(form_employe.entryAt) }} #}
+    </div>
+</div>
 
 
- {% endblock %}  
+{% endblock %}

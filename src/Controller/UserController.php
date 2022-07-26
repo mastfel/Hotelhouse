@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -52,9 +53,71 @@ class UserController extends AbstractController
     {
 
         return $this->render("user/show_profile.html.twig", [
-           
+            
         ]);
     } 
+    
+    // /**
+    //  * @Route ("/ajouter-un-user.html", name="user_create", methods={"GET|POST"})
+    //  */
+    // public function create (Request $request, EntityManagerInterface $entityManager ):Response
+    // {
+    //     $user = new User();
+
+    //     $form = $this->createForm(RegisterFormType::class, $user);
+    //     $form->handleRequest($request);
+    //     if($form->isSubmitted() && $form->isValid()) {
+
+    //         //$form->get('salary')->getData();
+    //         $entityManager->persist($user);
+    //         $entityManager->flush();
+            
+    //         return $this->redirectToRoute('default_home');
+
+    //     }
+
+    //     return $this->render("", [
+    //         "form_user" => $form->createView()
+    //     ]);
+    // }
+
+
+
+     /**
+      * @Route("/modifier-un-user{id}", name="user_update", methods={"GET|POST"})
+     */
+    public function update(User $user, Request $request, EntityManagerInterface $entityManager): Response
+     {
+      $form = $this->createForm(RegisterFormType::class, $user)
+            ->handleRequest($request);
+
+         if($form->isSubmitted() && $form->isValid()) {
+       $entityManager->persist($user);
+         $entityManager->flush();
+
+           return $this->redirectToRoute('show_profile');
+         } // end if()
+
+       return $this->render("user/change_compte.html.twig", [
+            'user' => $user,
+         'form_user' => $form->createView()
+        ]);
+    } # end function update()
+
+/**
+     * @Route("/supprimer-un-user-{id}", name="user_delete", methods={"GET"})
+
+     */
+    public function delete(User $user, EntityManagerInterface $entityManager): RedirectResponse
+    {
+    $entityManager->remove($user);
+    $entityManager->flush();
+    
+    return $this->redirectToRoute("default_home");
+    
+    }
+
+
 }
 
 

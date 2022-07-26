@@ -57,6 +57,12 @@ class Commande
      */
     private $createdAt;
 
+    /**
+     * @ORM\OneToOne(targetEntity=chambre::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $chambre;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +160,18 @@ class Commande
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getChambre(): ?chambre
+    {
+        return $this->chambre;
+    }
+
+    public function setChambre(chambre $chambre): self
+    {
+        $this->chambre = $chambre;
 
         return $this;
     }
