@@ -1,10 +1,41 @@
  {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Ajouter un user{% endblock %}
+
 {% block body %}
 
 
 
+
+    <h1 class="text-center my-4">Ajout d'un nouvel chambre</h1>
+
+
+
+       <h1 class="text-center my-4">Modifier l'empolyé {{user.prenom}} {{user.nom}}</h1>
+
+
+<div class="row">
+    <div class="col-8 mx-auto">
+
+       {#{{ form (form_employe) }}#}
+
+       {# Pour désactiver le validateur HTML coté-client (navigateur) on peut le faire 
+            dans EmployeFormType ('submit') OU dans le form_start en second argument comme suit: #}
+
+
+        {{ form_start(user,{'attr': {novalidate: 'novalidate'}}
+) }}
+
+         {{ form_row(user.prenom) }}
+        {{ form_row(user.nom) }}
+
+        {{ form_end(user)}}
+
+        
+</div>
+
+
+{% endblock %}
     
     
 
@@ -13,4 +44,3 @@
 
 
 
-{% endblock %} 

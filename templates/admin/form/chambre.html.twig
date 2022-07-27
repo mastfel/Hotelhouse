@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un article{% endblock %}
+
+{% block body %}
+
+    {% if article is not defined %}
+        <h1 class="text-center my-4">Ajouter une chambre</h1>
+    {% else %}
+        <h1 class="text-center my-4">Modifier une chambre</h1>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-8 mx-auto">
+
+            {{ form_start(form) }}
+
+                <div class="row">
+                    <div class="col-6">{{ form_row(form.titre) }}</div>
+                    <div class="col-6">{{ form_row(form.description_courte) }}</div>
+                </div>
+
+                {{ form_row(form.prix_journalier) }}
+
+                {{ form_row(form.photo) }}
+
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

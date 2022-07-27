@@ -52,25 +52,26 @@
         <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
          </li>
           {% endif %}
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Langue
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-            <li><a class="dropdown-item" href="#">Français</a></li>
-            <li><a class="dropdown-item" href="#">Anglais</a></li>
-            
-          </ul>
-        </li>
+          {% if is_granted("ROLE_ADMIN") %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Espace Admin
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ path('show_dashboard') }}">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="{{path('create_chambre')}}">Ajouter une chambre</a></li>
+                            <li><a class="dropdown-item" href="#">Ajouter une catégorie</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+        
       </ul>
     </div>
   </div>
    {% if app.user %}
 
         <div class="text-nowrap">Vous êtes connecté {{ app.user.prenom }} en tant que : <span class="text-warning">{{ app.user.roles | first }}</span></div>
-
-    {% endif%}
+ {% endif %}
 </nav>
  <figure class="figure">
 
