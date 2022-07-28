@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Entity\Slider;
 use App\Entity\Chambre;
+use App\Form\SliderFormType;
 use App\Form\ChambreFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,75 +41,72 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('default_home');
         }
 
-        $chambre = $entityManager->getRepository(Chambre::class)->findAll();
-       
+        $chambres = $entityManager->getRepository(Chambre::class)->findAll();
+        $sliders = $entityManager->getRepository(Slider::class)->findAll();
 
         return $this->render("admin/show_dashboard.html.twig", [
-            'chambres' => $chambre,
-            
+            'chambres' => $chambres,
+            'sliders' => $sliders
+
         ]);
     }
 
 
 
- /**
+    /**
      * @Route("/ajouter-un-article", name="create_chambre", methods={"GET|POST"})
-    */
-    public function createArticle(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
-   {
+     */
+    public function create(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    {
         # 1 - Instanciation
-      $chambre = new Chambre();
+        $chambre = new Chambre();
 
-      # 2 - Création du formulaire
-      $form = $this->createForm(ChambreFormType::class, $chambre)
-         ->handleRequest($request);
+        # 2 - Création du formulaire
+        $form = $this->createForm(ChambreFormType::class, $chambre)
+            ->handleRequest($request);
 
-       if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-         $chambre->setCreatedAt(new DateTime());
-            
+            $chambre->setCreatedAt(new DateTime());
 
-            
+          
+
             /** @var UploadedFile $photo */
-         $photo = $form->get('photo')->getData();
+            $photo = $form->get('photo')->getData();
 
             # Si une photo a été uploadée dans le formulaire on va faire le traitement nécessaire à son stockage dans notre projet.
-          if($photo) {
-            # Déconstructioon
-            $extension = '.' . $photo->guessExtension();
-                 $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+            if ($photo) {
+                # Déconstructioon
+                $extension = '.' . $photo->guessExtension();
+                $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-               
 
-               # Reconstruction
-               $newFilename = $safeFilename . '_' . uniqid() . $extension;
+
+                # Reconstruction
+                $newFilename = $safeFilename . '_' . uniqid() . $extension;
 
                 try {
-                  $photo->move($this->getParameter('uploads_dir'), $newFilename);
+                    $photo->move($this->getParameter('uploads_dir'), $newFilename);
                     $chambre->setPhoto($newFilename);
-              }
-               catch(FileException $exception) {
+                } catch (FileException $exception) {
                     # Code à exécuter en cas d'erreur.
                 }
             } # end if($photo)
 
-              
+            $entityManager->persist($chambre);
+            $entityManager->flush();
 
-                $entityManager->persist($chambre);
-                 $entityManager->flush();
-
-               $this->addFlash('success', "La chambre est en ligne avec succès !");
-                return $this->redirectToRoute('show_dashboard');
-
+            $this->addFlash('success', "La chambre est en ligne avec succès !");
+            return $this->redirectToRoute('show_dashboard');
         } # end if ($form)
 
         # 3 - Création de la vue
         return $this->render("admin/form/chambre.html.twig", [
             'form' => $form->createView()
-       ]);
+        ]);
     } # end function createArticle
 
-/**
+    /**
      * @Route("/modifier-une-chambre_{id}", name="update_chambre", methods={"GET|POST"})
      */
     public function updateArticle(chambre $chambre, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
@@ -119,23 +118,19 @@ class AdminController extends AbstractController
             'photo' => $originalPhoto
         ])->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-
-            
-
-            
+        if ($form->isSubmitted() && $form->isValid()) {
 
             /** @var UploadedFile $photo */
             $photo = $form->get('photo')->getData();
 
             # Si une photo a été uploadée dans le formulaire on va faire le traitement nécessaire à son stockage dans notre projet.
-            if($photo) {
+            if ($photo) {
 
                 # Déconstructioon
                 $extension = '.' . $photo->guessExtension();
                 $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-           
+
 
                 # Reconstruction
                 $newFilename = $safeFilename . '_' . uniqid() . $extension;
@@ -143,15 +138,14 @@ class AdminController extends AbstractController
                 try {
                     $photo->move($this->getParameter('uploads_dir'), $newFilename);
                     $chambre->setPhoto($newFilename);
-                }
-                catch(FileException $exception) {
+                } catch (FileException $exception) {
                     # Code à exécuter en cas d'erreur.
                 }
             } else {
                 $chambre->setPhoto($originalPhoto);
             } # end if($photo)
 
-            
+
 
             $entityManager->persist($chambre);
             $entityManager->flush();
@@ -165,13 +159,9 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
             'chambre' => $chambre
         ]);
-    }# end function updateArticle
+    } # end function updateArticle
 
-  
-
-
-
-  /**
+    /**
      * @Route("/supprimer-une_une chambre_{id}", name="chambre_delete", methods={"GET"})
      */
     public function hardDeleteArticle(Chambre $chambre, EntityManagerInterface $entityManager): RedirectResponse
@@ -180,8 +170,8 @@ class AdminController extends AbstractController
         $photo = $chambre->getPhoto();
 
         // On utilise la fonction native de PHP unlink() pour supprimer un fichier dans le filesystem
-        if($photo) {
-            unlink($this->getParameter('uploads_dir'). '/' . $photo);
+        if ($photo) {
+            unlink($this->getParameter('uploads_dir') . '/' . $photo);
         }
 
         $entityManager->remove($chambre);
@@ -190,6 +180,143 @@ class AdminController extends AbstractController
         $this->addFlash('success', "La chambre a bien été supprimé de la base de données");
         return $this->redirectToRoute('show_dashboard');
     }
+
+
+    // SLIDER
+
+    /**
+     * @Route("/ajouter-un-slider", name="create_slider", methods={"GET|POST"})
+     */
+    public function createSlider(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    {
+        # 1 - Instanciation
+        $slider = new Slider();
+
+        # 2 - Création du formulaire
+        $form = $this->createForm(SliderFormType::class, $slider)
+            ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $slider->setCreatedAt(new DateTime());
+
+
+
+            /** @var UploadedFile $photo */
+            $photo = $form->get('photo')->getData();
+
+            # Si une photo a été uploadée dans le formulaire on va faire le traitement nécessaire à son stockage dans notre projet.
+            if ($photo) {
+                # Déconstructioon
+                $extension = '.' . $photo->guessExtension();
+                $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+
+
+                # Reconstruction
+                $newFilename = $safeFilename . '_' . uniqid() . $extension;
+
+                try {
+                    $photo->move($this->getParameter('uploads_dir'), $newFilename);
+                    $slider->setPhoto($newFilename);
+                } catch (FileException $exception) {
+                    # Code à exécuter en cas d'erreur.
+                }
+            } # end if($photo)
+
+
+
+            $entityManager->persist($slider);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Le slider est en ligne avec succès !");
+            return $this->redirectToRoute('show_dashboard');
+        } # end if ($form)
+
+        # 3 - Création de la vue
+        return $this->render("admin/form/slider.html.twig", [
+            'form' => $form->createView()
+        ]);
+    } # end function createArticle
+
+    /**
+     * @Route("/modifier-un-slider_{id}", name="update_slider", methods={"GET|POST"})
+     */
+    public function updateSlider(slider $slider, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    {
+        $originalPhoto = $slider->getPhoto();
+
+        # 2 - Création du formulaire
+        $form = $this->createForm(SliderFormType::class, $slider, [
+            'photo' => $originalPhoto
+        ])->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $photo */
+            $photo = $form->get('photo')->getData();
+
+            # Si une photo a été uploadée dans le formulaire on va faire le traitement nécessaire à son stockage dans notre projet.
+            if ($photo) {
+
+                # Déconstructioon
+                $extension = '.' . $photo->guessExtension();
+                $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+
+
+                # Reconstruction
+                $newFilename = $safeFilename . '_' . uniqid() . $extension;
+
+                try {
+                    $photo->move($this->getParameter('uploads_dir'), $newFilename);
+                    $slider->setPhoto($newFilename);
+                } catch (FileException $exception) {
+                    # Code à exécuter en cas d'erreur.
+                }
+            } else {
+                $slider->setPhoto($originalPhoto);
+            } # end if($photo)
+
+
+
+            $entityManager->persist($slider);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Le slider a été modifié avec succès !");
+            return $this->redirectToRoute('show_dashboard');
+        } # end if ($form)
+
+        # 3 - Création de la vue
+        return $this->render("admin/form/slider.html.twig", [
+            'form' => $form->createView(),
+            'slider' => $slider
+        ]);
+    } # end function updateArticle
+
+
+/**
+     * @Route("/supprimer-unslider_{id}", name="slider_delete", methods={"GET"})
+     */
+    public function hardDeleteCahmbre(Slider $slider, EntityManagerInterface $entityManager): RedirectResponse
+    {
+        // Suppression manuelle de la photo
+        $photo = $slider->getPhoto();
+
+        // On utilise la fonction native de PHP unlink() pour supprimer un fichier dans le filesystem
+        if ($photo) {
+            unlink($this->getParameter('uploads_dir') . '/' . $photo);
+        }
+
+        $entityManager->remove($slider);
+        $entityManager->flush();
+
+        $this->addFlash('success', "Le slider a bien été supprimé de la base de données");
+        return $this->redirectToRoute('show_dashboard');
+    }
+
+
+
 
 
 

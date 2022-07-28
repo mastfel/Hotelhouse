@@ -9,9 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ChambreController extends AbstractController
 {
-    /**
-     * @Route("/chambre", name="show_chambre")
-     */
+    // /**
+    //  * @Route("/chambre", name="show_chambre",methods={"GET"})
+    //  */
+    
     public function showChambre(Chambre $chambre): Response
     {
         return $this->render('chambre/show_chambre.html.twig', [

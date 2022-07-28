@@ -60,6 +60,52 @@
     </div>
 
 
+{# --------------------------------------------------partie slider--------------------------------------------------------------------------  #}
+
+
+        <div class="col-4"><a href="{{ path('create_slider') }}" class="btn btn-primary">Ajouter un slider</a></div>
+        
+    </div>
+<div class="row">
+        <div class="col-10 mx-auto my-4">
+
+            <h2 class="text-center">Toutes les photos</h2>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Photo</th>
+                    <th>Ordre</th>
+                    <th>Date Enregistrement</th>
+                    <th>Actions</th>
+              </tr>
+
+                </thead>
+                <tbody>
+                {% for slider in sliders %}
+                    <tr>
+                        <td>{{ slider.id }}</td>
+                        <td>
+                            <img src="{{ asset('uploads/' ~ slider.photo) }}"
+                                 alt="Photo de tee-shirt" width="80" height="58" class="img-thumbnail">
+                        </td>
+                        <td>{{ slider.ordre }} </td> 
+                         <td>{{ slider.createdAt | date('d/m/Y') }}</td> 
+                        <td>
+                             <a href="{{ path('update_slider', {"id": slider.id}) }}" class="text-info" title="Modifier le slider"><i class="fa fa-edit"></i></a> 
+                             <a href="{{ path('slider_delete', {"id": slider.id}) }}" class="text-danger" title="supprimer le slider" onclick="return confirm('Voulez-vous supprimer le slider ?')"><i class="fa fa-trash"></i></a> 
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+
 
 
 {% endblock %}
