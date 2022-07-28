@@ -1,108 +1,154 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tableau de bord{% endblock %}
+{% block title %}Tableau de bord
+{% endblock %}
 
 {% block body %}
 
-    <h1 class="text-center my-4">Tableau de Bord</h1>
+	<h1 class="text-center my-4">Tableau de Bord</h1>
 
-    <div class="row">
-        <div class="col-6 mx-auto">
-            {% include 'include/_flashes.html.twig' %}
-        </div>
-    </div>
-<div class="row mx-auto">
-        <div class="col-4"><a href="{{ path('create_chambre') }}" class="btn btn-primary">Ajouter une chambre</a></div>
-        
-    </div>
+	<div class="row">
+		<div class="col-6 mx-auto">
+			{% include 'include/_flashes.html.twig' %}
+		</div>
+	</div>
+	<div class="row mx-auto">
+		<div class="col-4">
+			<a href="{{ path('create_chambre') }}" class="btn btn-primary">Ajouter une chambre</a>
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="col-10 mx-auto my-4">
+
+			<h2 class="text-center">Toutes les chambres</h2>
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Titre</th>
+						<th>Courte description</th>
+						<th>longue description</th>
+						<th>photo</th>
+						<th>Prix journalier</th>
+						<th>Date Enregistrement</th>
+						<th>Actions</th>
+					</tr>
+
+				</thead>
+				<tbody>
+					{% for chambre in chambres %}
+						<tr>
+							<td>{{ chambre.id }}</td>
+							<td>{{ chambre.titre | length > 20 ? chambre.titre | slice(0,20) ~ '...' : chambre.titre }}</td>
+							<td>{{ chambre.descriptionCourte | length > 20 ? chambre.descriptionCourte | slice(0,20) ~ '...' : chambre.descriptionCourte }}</td>
+							<td>{{ chambre.descriptionLongue| length > 20 ? chambre.descriptionLongue | slice(0,20) ~ '...' : chambre.descriptionLongue }}</td>
+							<td>{{ chambre.prixJournalier }}
+								€</td>
+							<td>
+								<img src="{{ asset('uploads/' ~ chambre.photo) }}" alt="Photo de tee-shirt" width="80" height="58" class="img-thumbnail">
+							</td>
+							<td>{{ chambre.createdAt | date('d/m/Y') }}</td>
+							<td>
+								<a href="{{ path('update_chambre', {"id": chambre.id}) }}" class="text-info" title="Modifier la chambre">
+									<i class="fa fa-edit"></i>
+								</a>
+								<a href="{{ path('chambre_delete', {"id": chambre.id}) }}" class="text-danger" title="supprimer chambre" onclick="return confirm('Voulez-vous supprimer  la chambre ?')">
+									<i class="fa fa-trash"></i>
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+
+
+	{# --------------------------------------------------partie slider--------------------------------------------------------------------------  #}
+
+
+	<div class="col-4">
+		<a href="{{ path('create_slider') }}" class="btn btn-primary">Ajouter un slider</a>
+	</div>
+
+</div>
 <div class="row">
-        <div class="col-10 mx-auto my-4">
+	<div class="col-10 mx-auto my-4">
 
-            <h2 class="text-center">Toutes les chambres</h2>
+		<h2 class="text-center">Toutes les photos</h2>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Titre</th>
-                    <th>Courte description</th>
-                    <th>longue description</th>
-                    <th>photo</th>
-                    <th>Prix journalier</th>
-                    <th>Date Enregistrement</th>
-                    <th>Actions</th>
-              </tr>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Photo</th>
+					<th>Ordre</th>
+					<th>Date Enregistrement</th>
+					<th>Actions</th>
+				</tr>
 
-                </thead>
-                <tbody>
-                {% for chambre in chambres %}
-                    <tr>
-                        <td>{{ chambre.id }}</td>
-                        <td>{{ chambre.titre | length > 20 ? chambre.titre | slice(0,20) ~ '...' : chambre.titre }}</td>
-                        <td>{{ chambre.descriptionCourte | length > 20 ? chambre.descriptionCourte | slice(0,20) ~ '...' : chambre.descriptionCourte }}</td> 
-                        <td>{{ chambre.descriptionLongue| length > 20 ? chambre.descriptionLongue | slice(0,20) ~ '...' : chambre.descriptionLongue }}</td>
-                        <td>{{ chambre.prixJournalier }} €</td> 
-                        <td>
-                            <img src="{{ asset('uploads/' ~ chambre.photo) }}"
-                                 alt="Photo de tee-shirt" width="80" height="58" class="img-thumbnail">
-                        </td>
-                         <td>{{ chambre.createdAt | date('d/m/Y') }}</td> 
-                        <td>
-                             <a href="{{ path('update_chambre', {"id": chambre.id}) }}" class="text-info" title="Modifier la chambre"><i class="fa fa-edit"></i></a> 
-                             <a href="{{ path('chambre_delete', {"id": chambre.id}) }}" class="text-danger" title="supprimer chambre" onclick="return confirm('Voulez-vous supprimer  la chambre ?')"><i class="fa fa-trash"></i></a> 
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+			</thead>
+			<tbody>
+				{% for slider in sliders %}
+					<tr>
+						<td>{{ slider.id }}</td>
+						<td>
+							<img src="{{ asset('uploads/' ~ slider.photo) }}" alt="Photo de tee-shirt" width="80" height="58" class="img-thumbnail">
+						</td>
+						<td>{{ slider.ordre }}
+						</td>
+						<td>{{ slider.createdAt | date('d/m/Y') }}</td>
+						<td>
+							<a href="{{ path('update_slider', {"id": slider.id}) }}" class="text-info" title="Modifier le slider">
+								<i class="fa fa-edit"></i>
+							</a>
+							<a href="{{ path('slider_delete', {"id": slider.id}) }}" class="text-danger" title="supprimer le slider" onclick="return confirm('Voulez-vous supprimer le slider ?')">
+								<i class="fa fa-trash"></i>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 
-        </div>
-    </div>
+	</div>
+</div>
 
-
-{# --------------------------------------------------partie slider--------------------------------------------------------------------------  #}
+{# -------------------------------------------------commande------------------------------------------------------ #}
 
 
-        <div class="col-4"><a href="{{ path('create_slider') }}" class="btn btn-primary">Ajouter un slider</a></div>
-        
-    </div>
+{# <div class="col-4">
+		<a href="{{ path('create_commande') }}" class="btn btn-primary">Ajouter un slider</a>
+	</div>
+
+</div>
 <div class="row">
-        <div class="col-10 mx-auto my-4">
+	<div class="col-10 mx-auto my-4">
 
-            <h2 class="text-center">Toutes les photos</h2>
+		<h2 class="text-center">Toutes les photos</h2>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Photo</th>
-                    <th>Ordre</th>
-                    <th>Date Enregistrement</th>
-                    <th>Actions</th>
-              </tr>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Photo</th>
+					<th>Ordre</th>
+					<th>Date Enregistrement</th>
+					<th>Actions</th>
+				</tr>
 
-                </thead>
-                <tbody>
-                {% for slider in sliders %}
-                    <tr>
-                        <td>{{ slider.id }}</td>
-                        <td>
-                            <img src="{{ asset('uploads/' ~ slider.photo) }}"
-                                 alt="Photo de tee-shirt" width="80" height="58" class="img-thumbnail">
-                        </td>
-                        <td>{{ slider.ordre }} </td> 
-                         <td>{{ slider.createdAt | date('d/m/Y') }}</td> 
-                        <td>
-                             <a href="{{ path('update_slider', {"id": slider.id}) }}" class="text-info" title="Modifier le slider"><i class="fa fa-edit"></i></a> 
-                             <a href="{{ path('slider_delete', {"id": slider.id}) }}" class="text-danger" title="supprimer le slider" onclick="return confirm('Voulez-vous supprimer le slider ?')"><i class="fa fa-trash"></i></a> 
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+			</thead> #}
 
-        </div>
-    </div>
+
+
+
+
+
+
+
 
 
 

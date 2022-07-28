@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Slider;
 use App\Entity\Chambre;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,10 +14,10 @@ class DefaultController extends AbstractController
     /**
      * @Route("/default", name="default_home")
      */
-    public function home(): Response
+    public function home(EntityManagerInterface $entityManager): Response
     {
         return $this->render('default/home.html.twig', [
-           
+            'sliders' => $entityManager->getRepository(Slider::class)->findAll()
         ]);
     }
 

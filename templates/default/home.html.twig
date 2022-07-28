@@ -4,5 +4,24 @@
 {% block title %}Page Accueil-Mastoura FELOUAH{% endblock %}
 
 {% block body %}
+{% if app.flashes %}
+        <div class="row">
+            <div class="col-8 mx-auto mt-3">
+                {% include 'include/_flashes.html.twig' %}
+            </div>
+        </div>
+    {% endif %}
 
+    {% for slider in sliders %}
+        <div class="col-3 mx-2">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ asset('uploads/' ~ slider.photo) }}" class="card-img-top" alt="une photo" style="object-fit: contain;" width="150" height="220">
+                <div class="card-body">
+                   
+                   
+                </div>
+            </div>
+        </div>
+    
+    {% endfor %}
 {% endblock %}
