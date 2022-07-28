@@ -53,12 +53,12 @@ class Commande
     private $email;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime" )
      */
     private $createdAt;
 
     /**
-     * @ORM\OneToOne(targetEntity=chambre::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Chambre::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $chambre;

@@ -5,8 +5,10 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\Slider;
 use App\Entity\Chambre;
+use App\Entity\Commande;
 use App\Form\SliderFormType;
 use App\Form\ChambreFormType;
+use App\Form\CommandeFormeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,11 +45,11 @@ class AdminController extends AbstractController
 
         $chambres = $entityManager->getRepository(Chambre::class)->findAll();
         $sliders = $entityManager->getRepository(Slider::class)->findAll();
-
+       
         return $this->render("admin/show_dashboard.html.twig", [
             'chambres' => $chambres,
-            'sliders' => $sliders
-
+            'sliders' => $sliders,
+            
         ]);
     }
 
@@ -316,9 +318,7 @@ class AdminController extends AbstractController
     }
 
 
-
-
-
+//     // réservation
 
 
 

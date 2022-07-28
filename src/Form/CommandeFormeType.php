@@ -2,53 +2,54 @@
 
 namespace App\Form;
 
+use App\Entity\Chambre;
 use App\Entity\Commande;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class CommandeFormeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('date_arrivee',DateTimeType::class, [
+            ->add('date_arrivee')
+            ->add('date_depart')
+            ->add('prix_total',)
+            ->add('prenom', TextType::class,[
+                'label' => 'Prénom',
+            ])
+            ->add('nom',TextType::class,[
+                'label' => 'Nom',
+            ])
+            ->add('telephone',TextType::class,[
+                'label' => 'Téléphone',
+            ])
+            ->add('email',TextType::class,[
+                'label' => 'E-mail',
+            ])
+            ->add('createdAt', DateTimeType::class, [
                 'label' => "Date d'enregistrement",
                 'widget' => 'single_text'
             ])
-            ->add('date_depart',DateTimeType::class, [
-                'label' => "Date d'enregistrement",
-                'widget' => 'single_text'
-            ])
-            ->add('prix_total',TextType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Prix €'
-                ],
-            ])
-            ->add('prenom',TextType::class, [
-                'label' => 'Prénom'
-            ])
-            ->add('nom',TextType::class, [
-                'label' => 'Prénom'
-            ])
-            ->add('telephone',TextType::class, [
-                'label' => 'Prénom'
-            ])
-            ->add('email',EmailType::class, [
-                'label' => 'E-mail'
-                
-            ])
-            ->add('createdAt',DateTimeType::class, [
-                'label' => "Date d'enregistrement",
-                'widget' => 'single_text'
-            ])
-            ->add('chambre', EntityType::class, [
+            ->add('chambre',EntityType::class, [
                 'class' => Chambre::class,
-                'choice_label' => 'name',
+                'choice_label' => 'id',
                 'label' => 'Chambre',
             ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Valider',
+                'validate' => false,
+                'attr' => [
+                    'class' => 'd-block mx-auto col-3 my-3 btn btn-success'
+                ],
+            ])
+
         ;
     }
 
