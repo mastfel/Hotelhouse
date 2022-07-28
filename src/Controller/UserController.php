@@ -100,11 +100,12 @@ class UserController extends AbstractController
 
        return $this->render("user/change_compte.html.twig", [
             'user' => $user,
-         'form_user' => $form->createView()
+         'form' => $form->createView()
         ]);
     } # end function update()
 
-/**
+ 
+    /**
      * @Route("/supprimer-un-user-{id}", name="user_delete", methods={"GET"})
 
      */
