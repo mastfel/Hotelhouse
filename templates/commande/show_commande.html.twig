@@ -1,49 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Voir les commandes{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
 
-{% if app.flashes %}
-        <div class="row">
-            <div class="col-8 mx-auto mt-3">
-                {% include 'include/_flashes.html.twig' %}
-            </div>
-        </div>
-    {% endif %}
 
-            table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Prénom</th>
-                    <th>Nom</th>
-                    <th>pseudo</th>
-                    <th>Email</th>
-                    <th>civilité</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-
-    {# {% for commande in commande %}
-        <div class="col-3 mx-2">
-            
-                    <h5 class="card-title">{{ commande.id }}</h5>
-                    <p class="card-text">{{ commande.chambre  }}</p>
-                    <p class="card-text">{{ commande.dateArrivee  }}</p>
-                    <p class="card-text">{{ commande.dateDepart  }}</p>
-                    <p class="card-text">{{ commande.prixTotal  }}</p>
-                    <p class="card-text">{{ commande.prenom  }}</p>
-                    <p class="card-text">{{ commande.nom  }}</p>
-                    <p class="card-text">{{ commande.telephone }}</p>
-                    <p class="card-text">{{ commande.email  }}</p>
-                    <p class="card-text">{{ commande.enregistrement }}</p>
-                    <p class="card-text">{{ commande.action }}</p>
-                   
-                </div>
-            </div>
-        </div>
+        
     
-    {% endfor %} #}
+        <h1 class="text-center my-4">Modifier une chambre</h1>
+   <div class="row">
+    <div class="col-8 mx-auto">
 
-{% endblock %}
+         {{ form_start(form) }}
+
+               
+
+
+
+            {{ form_end(form) }}
+          
+    
+    </div>
+</div>
+
+    
+    {% endblock %}

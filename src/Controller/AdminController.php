@@ -45,11 +45,12 @@ class AdminController extends AbstractController
 
         $chambres = $entityManager->getRepository(Chambre::class)->findAll();
         $sliders = $entityManager->getRepository(Slider::class)->findAll();
+         $commandes = $entityManager->getRepository(Commande::class)->findAll();
        
         return $this->render("admin/show_dashboard.html.twig", [
             'chambres' => $chambres,
             'sliders' => $sliders,
-            
+             'commandes' => $commandes,
         ]);
     }
 

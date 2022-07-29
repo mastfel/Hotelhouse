@@ -1,96 +1,103 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{ path('default_home') }}">HotelHouse</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ path('default_home') }}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('chambre_show')}}">Chambres</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Restaurant</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Spa</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('user_reservation') }}">Réservation</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Avis</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">L'hôtel</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Actualités</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
+	<div class="container-fluid">
+		<a class="navbar-brand" href="{{ path('default_home') }}">HotelHouse</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="{{ path('default_home') }}">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('chambre_show')}}">Chambres</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Restaurant</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Spa</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('create_reservation') }}">Réservation</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Avis</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">L'hôtel</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Actualités</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Contact</a>
+				</li>
 
-        {% if not app.user %}
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('user_register') }}">Inscription</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-        </li>
-        {% else %}
-       <li class="nav-item">
-       <a class="nav-link" href="{{ path('show_profile') }}">Espace perso</a>
-        </li>
-        <li class="nav-item">
-      {# <a class="nav-link" href="{{ path('user_update') }}">Modifer mon compte</a> #}
-         </li>
-        <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
-         </li>
-          {% endif %}
-          {% if is_granted("ROLE_ADMIN") %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Espace Admin
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ path('show_dashboard') }}">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="{{ path('create_chambre')}}">Ajouter une chambre</a></li>
-                            <li><a class="dropdown-item" href="{{ path('create_slider') }}">Ajouter un slider</a></li>
-                        </ul>
-                    </li>
-                {% endif %}
-        
-      </ul>
-    </div>
-  </div>
-   {% if app.user %}
+				{% if not app.user %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('user_register') }}">Inscription</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('show_profile') }}">Espace perso</a>
+					</li>
+					<li class="nav-item"></li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+					</li>
+				{% endif %}
+				{% if is_granted("ROLE_ADMIN") %}
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Espace Admin
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li>
+								<a class="dropdown-item" href="{{ path('show_dashboard') }}">Dashboard</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{{ path('create_chambre')}}">Ajouter une chambre</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{{ path('create_slider') }}">Ajouter un slider</a>
+							</li>
+						</ul>
+					</li>
+				{% endif %}
 
-        <div class="text-nowrap">Vous êtes connecté {{ app.user.prenom }} en tant que : <span class="text-warning">{{ app.user.roles | first }}</span></div>
- {% endif %}
+			</ul>
+		</div>
+	</div>
+	{% if app.user %}
+
+		<div class="text-nowrap">Vous êtes connecté
+			{{ app.user.prenom }}
+			en tant que :
+			<span class="text-warning">{{ app.user.roles | first }}</span>
+		</div>
+	{% endif %}
 </nav>
- <figure class="figure">
+<figure class="figure">
 
-<img src={{asset('/media/hotel.jpg')}}  class="figure-img img-fluid rounded" alt="hotel"  >
+	<img src={{asset('/media/hotel.jpg')}} class="figure-img img-fluid rounded" alt="hotel">
 </figure>
 
- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{ path('default_home') }}">HotelHouse</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ path('chambre_show')}}">Découvrez nos chambre</a>
-        </li>
-        
-    </div>
-  </div>
-</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="{{ path('default_home') }}">HotelHouse</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="{{ path('chambre_show')}}">Découvrez nos chambre</a>
+				</li>
 
+			</div>
+		</div>
+	</nav>

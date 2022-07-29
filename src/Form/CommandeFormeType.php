@@ -39,7 +39,8 @@ class CommandeFormeType extends AbstractType
             ])
             ->add('chambre',EntityType::class, [
                 'class' => Chambre::class,
-                'choice_label' => 'id',
+                'choice_label' => 'titre',
+                // 'choice_label' => 'prix_journalier',
                 'label' => 'Chambre',
             ])
             ->add('submit', SubmitType::class, [

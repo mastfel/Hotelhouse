@@ -57,32 +57,7 @@ class UserController extends AbstractController
         ]);
     } 
     
-    // /**
-    //  * @Route ("/ajouter-un-user.html", name="user_create", methods={"GET|POST"})
-    //  */
-    // public function create (Request $request, EntityManagerInterface $entityManager ):Response
-    // {
-    //     $user = new User();
-
-    //     $form = $this->createForm(RegisterFormType::class, $user);
-    //     $form->handleRequest($request);
-    //     if($form->isSubmitted() && $form->isValid()) {
-
-    //         //$form->get('salary')->getData();
-    //         $entityManager->persist($user);
-    //         $entityManager->flush();
-            
-    //         return $this->redirectToRoute('default_home');
-
-    //     }
-
-    //     return $this->render("", [
-    //         "form_user" => $form->createView()
-    //     ]);
-    // }
-
-
-
+    
      /**
       * @Route("/modifier-un-user{id}", name="user_update", methods={"GET|POST"})
      */

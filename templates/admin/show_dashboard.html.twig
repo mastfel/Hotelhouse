@@ -119,33 +119,63 @@
 
 {# -------------------------------------------------commande------------------------------------------------------ #}
 
-
-{# <div class="col-4">
-		<a href="{{ path('create_commande') }}" class="btn btn-primary">Ajouter un slider</a>
+<div class="col-4">
+		<a href="{{ path('create_reservation') }}" class="btn btn-primary">Ajouter une réservation</a>
 	</div>
 
 </div>
 <div class="row">
 	<div class="col-10 mx-auto my-4">
 
-		<h2 class="text-center">Toutes les photos</h2>
+		<h2 class="text-center">Toutes les réservations</h2>
 
 		<table class="table">
 			<thead>
 				<tr>
-					<th>#</th>
-					<th>Photo</th>
-					<th>Ordre</th>
-					<th>Date Enregistrement</th>
+					<th>Commande</th>
+					<th>Chambre</th>
+					<th>Date_arrivée</th>
+					<th>Date-départ</th>
+					<th>Prix-total</th>
+					<th>Prenom</th>
+					<th>Nom</th>
+					<th>téléphone</th>
+					<th>Email</th>
+					<th>Date et heure d'enregistrement</th>
 					<th>Actions</th>
 				</tr>
 
-			</thead> #}
+			</thead>
+			 <tbody>
+				{% for commande in commandes %}
+					<tr>
+						<td>{{ commande.id }}</td>
+						<td>{{ commande.chambre.titre }}</td>
+						
+						</td>
+						<td>{{ commande.dateArrivee | date('d/m/Y') }}</td>
+						<td>{{ commande.dateDepart | date('d/m/Y') }}</td>
+						<td>{{ commande.prixTotal  }}</td>
+						<td>{{ commande.prenom }}</td>
+						<td>{{ commande.nom  }}</td>
+						<td>{{ commande.telephone  }}</td>
+						 <td>{{ commande.email  }}</td> 
+						<td>{{ commande.createdAt | date('d/m/Y') }}</td>
+						<td>
+							<a href="{{ path('commande_update', {"id": commande.id}) }}" class="text-info" title="Modifier la commande">
+								<i class="fa fa-edit"></i>
+							</a>
+							<a href="{{ path('commande_delete', {"id": commande.id}) }}" class="text-danger" title="supprimer la commande" onclick="return confirm('Voulez-vous supprimer la commande ?')">
+								<i class="fa fa-trash"></i>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table> 
 
-
-
-
-
+	</div>
+</div>
 
 
 
