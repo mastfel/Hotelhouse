@@ -18,9 +18,20 @@ class CommandeFormeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('date_arrivee')
-            ->add('date_depart')
-            ->add('prix_total',)
+            ->add('date_arrivee',DateTimeType::class, [
+                'label' => "Date d'enregistrement",
+                'widget' => 'single_text'
+            ])
+            ->add('date_depart',DateTimeType::class, [
+                'label' => "Date d'enregistrement",
+                'widget' => 'single_text'
+            ])
+            ->add('prix_total',TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Prix €'
+                ],
+            ])
             ->add('prenom', TextType::class,[
                 'label' => 'Prénom',
             ])
@@ -40,7 +51,6 @@ class CommandeFormeType extends AbstractType
             ->add('chambre',EntityType::class, [
                 'class' => Chambre::class,
                 'choice_label' => 'titre',
-                // 'choice_label' => 'prix_journalier',
                 'label' => 'Chambre',
             ])
             ->add('submit', SubmitType::class, [
