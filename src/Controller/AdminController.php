@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Entity\User;
 use App\Entity\Slider;
 use App\Entity\Chambre;
 use App\Entity\Commande;
@@ -46,11 +47,13 @@ class AdminController extends AbstractController
         $chambres = $entityManager->getRepository(Chambre::class)->findAll();
         $sliders = $entityManager->getRepository(Slider::class)->findAll();
          $commandes = $entityManager->getRepository(Commande::class)->findAll();
+         $users = $entityManager->getRepository(User::class)->findAll();
        
         return $this->render("admin/show_dashboard.html.twig", [
             'chambres' => $chambres,
             'sliders' => $sliders,
              'commandes' => $commandes,
+             'users' => $users,
         ]);
     }
 
@@ -320,6 +323,25 @@ class AdminController extends AbstractController
 
 
 //     // réservation
+
+/**
+     * @Route("/voir-membre", name="show_user", methods={"GET"})
+     */
+    public function showUser(EntityManagerInterface $entityManager): Response
+    {
+        try {
+            $this->denyAccessUnLessGranted('ROLE_ADMIN');
+        } catch (AccessDeniedException $exception) {
+            $this->addFlash('warning', 'Cette partie du site est réservée aux admins');
+            return $this->redirectToRoute('show_dashboard');
+        }
+
+        $users = $entityManager->getRepository(User::class)->findAll();
+        return $this->render("admin/show_user.html.twig", [
+            'users' => $users,
+        ]);
+    }
+
 
 
 
