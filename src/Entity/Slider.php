@@ -21,12 +21,6 @@ class Slider
      * @ORM\Column(type="string", length=255)
      */
     private $photo;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $ordre;
-
     /**
      * @ORM\Column(type="datetime")
      */
@@ -49,17 +43,6 @@ class Slider
         return $this;
     }
 
-    public function getOrdre(): ?string
-    {
-        return $this->ordre;
-    }
-
-    public function setOrdre(string $ordre): self
-    {
-        $this->ordre = $ordre;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {

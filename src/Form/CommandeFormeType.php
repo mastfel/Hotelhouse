@@ -20,7 +20,6 @@ class CommandeFormeType extends AbstractType
         $builder
             ->add('date_arrivee')
             ->add('date_depart')
-            ->add('prix_total',)
             ->add('prenom', TextType::class,[
                 'label' => 'Prénom',
             ])
@@ -33,15 +32,11 @@ class CommandeFormeType extends AbstractType
             ->add('email',TextType::class,[
                 'label' => 'E-mail',
             ])
-            ->add('createdAt', DateTimeType::class, [
-                'label' => "Date d'enregistrement",
-                'widget' => 'single_text'
-            ])
             ->add('chambre',EntityType::class, [
                 'class' => Chambre::class,
                 'choice_label' => 'titre',
-                // 'choice_label' => 'prix_journalier',
-                'label' => 'Chambre',
+            //    'choice_label' => 'prix_journalier',
+                'label' => 'Chambre & prix',
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',

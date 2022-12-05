@@ -18,7 +18,7 @@ class ChambreFormType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class,[
-                'label' => 'Titre'
+                'label' => 'Titre & prix'
             ])
             ->add('description_courte',TextareaType::class,[
                 'label' => 'Courte description'
@@ -34,12 +34,6 @@ class ChambreFormType extends AbstractType
                 ],
                 'required' => false,
                 'mapped' => false,
-            ])
-            ->add('prix_journalier', TextType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Prix €'
-                ],
             ])
             ->add('createdAt', DateTimeType::class, [
                 'label' => "Date d'enregistrement",

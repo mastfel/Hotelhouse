@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Commande;
 use App\Form\CommandeFormeType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,7 +28,6 @@ class CommandeController extends AbstractController
 
         # 4 - Si le form est soumis ET valide
         if($form->isSubmitted() && $form->isValid()) {
-            
             $entityManager->persist($commande);
             $entityManager->flush();
 

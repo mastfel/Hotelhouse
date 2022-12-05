@@ -25,9 +25,7 @@ class SliderFormType extends AbstractType
             'required' => false,
             'mapped' => false,
         ])
-        ->add('ordre', TextType::class, [
-            'label' => 'Ordre'
-        ])
+    
             ->add('createdAt', DateTimeType::class, [
                 'label' => "Date d'enregistrement",
                 'widget' => 'single_text'

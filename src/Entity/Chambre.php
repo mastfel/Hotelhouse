@@ -37,10 +37,7 @@ class Chambre
      */
     private $photo;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $prix_journalier;
+    
 
     /**
      * @ORM\Column(type="datetime")
@@ -96,18 +93,6 @@ class Chambre
     public function setPhoto(string $photo): self
     {
         $this->photo = $photo;
-
-        return $this;
-    }
-
-    public function getPrixJournalier(): ?int
-    {
-        return $this->prix_journalier;
-    }
-
-    public function setPrixJournalier(int $prix_journalier): self
-    {
-        $this->prix_journalier = $prix_journalier;
 
         return $this;
     }

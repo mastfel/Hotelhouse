@@ -27,11 +27,7 @@ class Commande
      */
     private $date_depart;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $prix_total;
-
+   
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -52,16 +48,16 @@ class Commande
      */
     private $email;
 
-    /**
-     * @ORM\Column(type="datetime" )
-     */
-    private $createdAt;
 
     /**
      * @ORM\OneToOne(targetEntity=Chambre::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $chambre;
+
+   
+
+    
 
     public function getId(): ?int
     {
@@ -92,17 +88,7 @@ class Commande
         return $this;
     }
 
-    public function getPrixTotal(): ?int
-    {
-        return $this->prix_total;
-    }
-
-    public function setPrixTotal(int $prix_total): self
-    {
-        $this->prix_total = $prix_total;
-
-        return $this;
-    }
+   
 
     public function getPrenom(): ?string
     {
@@ -152,18 +138,6 @@ class Commande
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getChambre(): ?chambre
     {
         return $this->chambre;
@@ -175,4 +149,15 @@ class Commande
 
         return $this;
     }
+
+    
+
+    
+
+   
+
+    
+
+    
+    
 }
