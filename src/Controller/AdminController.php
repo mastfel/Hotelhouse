@@ -74,6 +74,7 @@ class AdminController extends AbstractController
             $photo = $form->get('photo')->getData();
 
            
+            if ($photo) {
                 # Déconstructioon
                 $extension = '.' . $photo->guessExtension();
                 $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
@@ -121,7 +122,7 @@ class AdminController extends AbstractController
             /** @var UploadedFile $photo */
             $photo = $form->get('photo')->getData();
 
-          
+           
             if ($photo) {
 
                 # Déconstructioon
@@ -167,7 +168,7 @@ class AdminController extends AbstractController
         // Suppression manuelle de la photo
         $photo = $chambre->getPhoto();
 
-        
+        // On utilise la fonction native de PHP unlink() pour supprimer un fichier dans le filesystem
         if ($photo) {
             unlink($this->getParameter('uploads_dir') . '/' . $photo);
         }
@@ -202,8 +203,6 @@ class AdminController extends AbstractController
 
             /** @var UploadedFile $photo */
             $photo = $form->get('photo')->getData();
-
-           
             if ($photo) {
                 # Déconstructioon
                 $extension = '.' . $photo->guessExtension();
@@ -237,9 +236,6 @@ class AdminController extends AbstractController
         ]);
     } # end function createArticle
 
-
-
-    
     /**
      * @Route("/modifier-un-slider_{id}", name="update_slider", methods={"GET|POST"})
      */
@@ -257,7 +253,6 @@ class AdminController extends AbstractController
             /** @var UploadedFile $photo */
             $photo = $form->get('photo')->getData();
 
-           
             if ($photo) {
 
                 # Déconstructioon
