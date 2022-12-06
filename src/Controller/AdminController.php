@@ -242,6 +242,9 @@ class AdminController extends AbstractController
         ]);
     } # end function createArticle
 
+
+
+    
     /**
      * @Route("/modifier-un-slider_{id}", name="update_slider", methods={"GET|POST"})
      */

@@ -13,20 +13,15 @@
     {% endif %}
 
     {% for chambre in chambres %}
-        <div class="col-3 my-3 mx-2 mx-auto">
+        <div>
     
-            <div class="card" style="width: 18rem; height: 26rem;">
-                <img src="{{ asset('uploads/' ~ chambre.photo) }}" class="card-img-top" alt="une photo" style="object-fit: contain;" width="150" height="220">
+          
+                <img src="{{ asset('uploads/' ~ chambre.photo) }}" class="card-img-top" alt="une photo" style="object-fit: contain;" width="230" height="200">
                 <div class="card-body">
-                    <h5 class="card-title">{{ chambre.titre }}</h5>
-                    <p class="card-text">{{ chambre.descriptionCourte  }}</p>
-                     <p class="card-text">{{ chambre.descriptionLongue  }} </p>
-                     
-                      
-                   
-                    
+                    <h5 class="card-title title">{{ chambre.titre }}</h5>
+                    <p class="card-text description">{{ chambre.descriptionCourte  }}</p>
+                    <p class="card-text col-9 mx-auto mb-5 ">{{ chambre.descriptionLongue  }} </p>
                 </div>
-            </div>
         </div>
 
      

@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,100&family=Noto+Serif:ital@0;1&display=swap');
+
+body{
+  font-family: 'Lato', sans-serif;
+  font-family: 'Noto Serif', serif;
+  font-size: 15px;
+}
+
+
+
+.nav-link{
+    color: #f047c6!important;
+    font-style: italic;
+    
+  }
+  
+  .nav-link:hover{
+    font-weight: bold;
+    background-color:white !important;
+    border: solid #dadad6 5px;
+    border-radius: 15%;
+   
+  }
+  
+  footer{
+    background-color:#ce5eba;
+}
+.btn-danger{
+ text-align: center;
+}
+.title{
+  text-align:center;
+  color:#f047c6;
+}
+.description{
+  text-align: center;
+  color: rgb(21, 89, 156);
+}
+.card-img-top{
+  height : 500px;
+  object-fit: contain;
+}

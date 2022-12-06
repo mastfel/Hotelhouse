@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voir les chambres{% endblock %}
+
+{% block body %}
+            <h1 class="text-center"  >Bienvenue</h1>
+{% if app.flashes %}
+        <div class="row">
+            <div class="col-9 mx-auto mb-5">
+                {% include 'include/_flashes.html.twig' %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% for slider in sliders %}
+        <div class="">
+    
+          
+                <img src="{{ asset('uploads/' ~ slider.photo) }}" class="card-img-top" alt="une photo" style="object-fit: contain;" width="230" height="200">
+                <hr>
+        </div>
+
+     
+    {% endfor %}
+
+{% endblock %}
