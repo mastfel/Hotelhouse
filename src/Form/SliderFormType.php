@@ -36,7 +36,7 @@ class SliderFormType extends AbstractType
                 'label' => 'Valider',
                 'validate' => false,
                 'attr' => [
-                    'class' => 'd-block col-3 my-3 mx-auto btn btn-success'
+                    'class' => 'd-block col-3 my-3 mx-auto btn btn-dark'
                 ]
             ])
         ;

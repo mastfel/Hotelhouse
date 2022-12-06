@@ -35,14 +35,13 @@ class CommandeFormeType extends AbstractType
             ->add('chambre',EntityType::class, [
                 'class' => Chambre::class,
                 'choice_label' => 'titre',
-            //    'choice_label' => 'prix_journalier',
                 'label' => 'Chambre & prix',
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',
                 'validate' => false,
                 'attr' => [
-                    'class' => 'd-block mx-auto col-3 my-3 btn btn-success'
+                    'class' => 'd-block mx-auto col-3 my-3 btn btn-dark'
                 ],
             ])
 

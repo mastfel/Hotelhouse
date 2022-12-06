@@ -43,7 +43,7 @@ class ChambreFormType extends AbstractType
                 'label' => 'Valider',
                 'validate' => false,
                 'attr' => [
-                    'class' => 'd-block mx-auto col-3 my-3 btn btn-success'
+                    'class' => 'd-block mx-auto col-3 my-3 btn btn-dark'
                 ],
             ])
         ;

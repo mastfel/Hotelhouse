@@ -5,9 +5,11 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
@@ -31,8 +33,21 @@ class RegisterFormType extends AbstractType
         ->add('pseudo', TextType::class, [
             'label' => 'pseudo'
         ])
-        ->add('civilite', TextType::class, [
-            'label' => 'civilité'
+        ->add('civilite', ChoiceType::class, [
+            'label' => 'Civilité',
+            'expanded' => true,
+            'choices' => [
+                "Homme" => 'homme',
+                "Femme" => 'femme'
+            ],
+            'choice_attr' => [
+              "Homme" => ['selected' => true],
+            ],
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Ce champ ne peut être vide'
+                ]),
+            ],
         ])
         
         
@@ -42,7 +57,7 @@ class RegisterFormType extends AbstractType
             'label' => 'Valider',
             'validate' => false,
             'attr' => [
-                'class' => 'd-block col-3 my-3 mx-auto btn btn-success'
+                'class' => 'd-block col-3 my-3 mx-auto btn btn-dark'
             ]
         ])
         ;

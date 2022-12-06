@@ -3,6 +3,12 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+    <div class="row">
+        <div class="col-8 mx-auto">
+            {% include 'include/_flashes.html.twig' %}
+    </div>
+    </div>
+    
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -35,7 +41,7 @@
         </div>
     #}
 <br>
-    <button class="btn btn-lg btn-success my-3 d-block mx-auto" type="submit">
+    <button class="btn btn-lg btn-dark my-3 d-block mx-auto" type="submit">
         Connexion
     </button>
 </form>

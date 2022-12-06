@@ -31,7 +31,7 @@ class CommandeController extends AbstractController
             $entityManager->persist($commande);
             $entityManager->flush();
 
-            $this->addFlash('success', "votre réservation est prise en compte !");
+            $this->addFlash('success', "votre réservation est prise en compte, vous recevrez un email de confirmation!");
             return $this->redirectToRoute('create_reservation');
         }
 

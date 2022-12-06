@@ -40,3 +40,6 @@ body{
   height : 500px;
   object-fit: contain;
 }
+.justify-content-center{
+  background-color: #f047c6;
+}
