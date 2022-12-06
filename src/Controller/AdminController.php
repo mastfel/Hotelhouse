@@ -31,11 +31,7 @@ class AdminController extends AbstractController
      */
     public function showDashboard(EntityManagerInterface $entityManager): Response
     {
-        # 2ème façon de bloquer un accès à un user en fonction de son rôle
-        # (la première se trouve dans "access control" -> config/packages/security.yaml)
-        // Ce bloc de code vous permet de vérifier si le rôle du user est ADMIN, sinon cela lance une
-        // une erreur, qui est attrapée dans le catch et cela redirige avec un message dans une partie
-        // autorisée pour les différents rôles.
+        
         try {
             $this->denyAccessUnlessGranted('ROLE_ADMIN');
         } catch (AccessDeniedException $exception) {
@@ -77,8 +73,7 @@ class AdminController extends AbstractController
             /** @var UploadedFile $photo */
             $photo = $form->get('photo')->getData();
 
-            # Si une photo a été uploadée dans le formulaire on va faire le traitement nécessaire à son stockage dans notre projet.
-            if ($photo) {
+           
                 # Déconstructioon
                 $extension = '.' . $photo->guessExtension();
                 $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
@@ -126,7 +121,7 @@ class AdminController extends AbstractController
             /** @var UploadedFile $photo */
             $photo = $form->get('photo')->getData();
 
-            # Si une photo a été uploadée dans le formulaire on va faire le traitement nécessaire à son stockage dans notre projet.
+          
             if ($photo) {
 
                 # Déconstructioon
@@ -172,7 +167,7 @@ class AdminController extends AbstractController
         // Suppression manuelle de la photo
         $photo = $chambre->getPhoto();
 
-        // On utilise la fonction native de PHP unlink() pour supprimer un fichier dans le filesystem
+        
         if ($photo) {
             unlink($this->getParameter('uploads_dir') . '/' . $photo);
         }
@@ -208,7 +203,7 @@ class AdminController extends AbstractController
             /** @var UploadedFile $photo */
             $photo = $form->get('photo')->getData();
 
-            # Si une photo a été uploadée dans le formulaire on va faire le traitement nécessaire à son stockage dans notre projet.
+           
             if ($photo) {
                 # Déconstructioon
                 $extension = '.' . $photo->guessExtension();
@@ -262,7 +257,7 @@ class AdminController extends AbstractController
             /** @var UploadedFile $photo */
             $photo = $form->get('photo')->getData();
 
-            # Si une photo a été uploadée dans le formulaire on va faire le traitement nécessaire à son stockage dans notre projet.
+           
             if ($photo) {
 
                 # Déconstructioon
